@@ -22,8 +22,10 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  indexcount = 0
+  while indexcount < students.length
+    puts "#{students[indexcount][:name]} (#{students[indexcount][:cohort]} cohort)"
+    indexcount += 1
   end
 end
 
@@ -31,10 +33,31 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
+def print_letter(students)
+  puts "Please enter a letter you want to filter:"
+  letter = gets.chomp
+    students.each_with_index do |student, index|
+      if student[:name][0] == letter
+        puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      end
+  end
+end
+
+def print_12orless(students)
+  puts "Printing students with names that are 12 characters or less:"
+  students.each_with_index do |student, index|
+    if student[:name].length < 12
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
 
 
 students = input_students          #assigning the method input_students to a variable
 print_header
 print(students)                    #calling the saved variable on our defined methods above
 print_footer(students)
-
+puts
+print_letter(students)
+puts
+print_12orless(students)
